@@ -22,6 +22,13 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background: linear-gradient(45deg,#fead06,#c00def);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 img {
 	width: 180px;
 	height: 180px;

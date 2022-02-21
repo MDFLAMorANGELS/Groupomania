@@ -22,6 +22,5 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(45deg,#fead06,#c00def);
 }
 </style>

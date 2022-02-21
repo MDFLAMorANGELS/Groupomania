@@ -2,7 +2,7 @@
 <div class="form">
     <div v-if="mode == 'login'" class="container">
         <h2>Connexion a Groupomania</h2>
-        <p @click="switchToCreateAccount">Tu n'as pas encore de compte <span>creer un compte</span></p>
+        <p @click="switchToCreateAccount">Tu n'as pas encore de compte ? <span>creer un compte</span></p>
         <form @submit.prevent="login()" action="">
             <div class="inputBox">
                 <label for="email">email adresse : </label>
