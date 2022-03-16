@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
     <div id="logo">
-      <img src='./assets/logo.png' alt= 'Logo de Groupomania' />
+      <img id="logo" src='./assets/logo.png' alt= 'Logo de Groupomania' />
     </div>
   </div>
   <router-view/>
@@ -22,14 +22,10 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  background: linear-gradient(45deg,#fead06,#c00def);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+body{
+  background: linear-gradient(45deg,#112341,#AEAEAE);
 }
-img {
+#logo {
 	width: 180px;
 	height: 180px;
   position: absolute;

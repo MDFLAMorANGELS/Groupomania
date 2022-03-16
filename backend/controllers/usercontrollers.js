@@ -10,7 +10,7 @@ exports.signup =  (req, res , next) => {
         schema
         .is().min(8)                                    // Minimum length 8
         .is().max(100)                                  // Maximum length 100
-        .has().uppercase()                              // Must have uppercase letters
+        .has().uppercase(1)                              // Must have uppercase letters
         .has().lowercase()                              // Must have lowercase letters
         .has().digits(2)                                // Must have at least 2 digits
         .has().not().spaces()                           // Should not have spaces
@@ -32,6 +32,7 @@ exports.signup =  (req, res , next) => {
         })
     } catch (error) {
         console.log(error);
+        return res.status(402).json({message: 'User not created '})
         next(error);
     }
 };

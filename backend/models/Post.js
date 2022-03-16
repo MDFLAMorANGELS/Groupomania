@@ -9,32 +9,39 @@ class Post {
     }
 
     save() {
-        let d = new Date();
-        let yyyy = d.getFullYear();
-        let mm = d.getMonth() + 1;
-        let dd = d.getDate();
-
-        let createdAtDate = `${yyyy}-${mm}-${dd}`;
-
-        let sql = `
-        INSERT INTO post(
-           title,
-           data,
-           author_ID,
-           created_at,
-           image
-           
-        )
-        VALUES(
-            '${this.title}',
-            '${this.data}',
-            '${this.authorID}',
-           ' ${createdAtDate}',
-           ' ${this.image}'
-        )
-        `;
-
-        return db.execute(sql);
+        if (this.image !== null) {
+            let sql = `
+            INSERT INTO post(
+               title,
+               data,
+               author_ID,
+               image
+            )
+            VALUES(
+                '${this.title}',
+                '${this.data}',
+                '${this.authorID}',
+                '${this.image}'
+            )
+            `;
+    
+            return db.execute(sql);
+        }else{
+            let sql = `
+            INSERT INTO post(
+               title,
+               data,
+               author_ID
+            )
+            VALUES(
+                '${this.title}',
+                '${this.data}',
+                '${this.authorID}'
+            )
+            `;
+    
+            return db.execute(sql);
+        }
     }
 
     static findAll() {
@@ -43,7 +50,7 @@ class Post {
     }
 
     static findById(id) {
-        let sql = `select post.title,post.created_at, post.data, post.ID, post.author_ID, user.username from post INNER JOIN user ON post.author_ID = user.ID  WHERE post.ID = ${id};`;
+        let sql = `select post.title,post.created_at, post.data, post.ID, post.author_ID, post.image, user.username from post INNER JOIN user ON post.author_ID = user.ID  WHERE post.ID = ${id};`;
 
         return db.execute(sql);
     }

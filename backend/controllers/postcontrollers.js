@@ -1,5 +1,7 @@
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
+const fs = require('fs');
+
 
 exports.getAllPost = async (req, res, next) => {
     try {
@@ -23,7 +25,7 @@ exports.getAllPost = async (req, res, next) => {
 exports.createNewPost = async (req, res , next) => {
     try {
         //console.log(req.file)
-        let image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+        let image = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`:null;
         let { title, data} = req.body;
     let post = new Post(title, data, req.userID, image);
     const createdPost = await post.save();
@@ -51,7 +53,20 @@ exports.getPostById = async (req, res, next) => {
 exports.deletePost = async (req, res, next) => {
     try {
         let postId = req.params.id;
-        await Post.deletePost(postId);
+        const post = await Post.findById(postId)
+        console.log(post)
+        if(post[0][0].image != null ){
+            const filename = post[0][0].image.split('/images/')[1];
+            fs.unlink(`./images/${filename}`, (err) => {
+             console.log('err',err)   
+             Post.deletePost(postId)
+             .then (() => {
+                
+             })
+        })
+        } else {
+             Post.deletePost(postId);
+        }
         res.status(200).json('post Deleted');
     } catch (error) {
         console.log(error);

@@ -8,8 +8,13 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^6.0.0",
+    "@fortawesome/free-regular-svg-icons": "^6.0.0-beta3",
+    "@fortawesome/free-solid-svg-icons": "^6.0.0-beta3",
+    "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "axios": "^0.25.0",
     "core-js": "^3.6.5",
+    "date-fns": "^2.28.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"

@@ -60,6 +60,36 @@ const store = createStore({
       }
       localStorage.removeItem('user');
     },
+    statePoste: function(state, post) {
+      state.post = post;
+    },
+    addStatePost: function(state, post){
+      state.post.unshift(post)
+      console.log(state.post);
+    },
+    deleteStatePoste: function(state,postID){
+      let post = state.post.filter(p => p.ID  != postID);
+      state.post = post
+    },
+    addStateComment: function(state,comment){
+      console.log(state)
+      let postIndex = state.post.findIndex(post => post.ID === comment.post_ID)
+      console.log(postIndex)
+      if (state.post[postIndex].comments) {
+        state.post[postIndex].comments.unshift(comment)
+      } else {
+        state.post[postIndex].comments = [comment]
+      }
+    },
+    deleteStateCommente: function(state,comment){
+      let posts = [...state.post]
+      let postIndex = posts.findIndex(post => post.ID === comment.post_ID)
+      console.log(postIndex)
+      let commentIndex = posts[postIndex].comments.findIndex(com => com.ID === comment.ID)
+      console.log(commentIndex)
+      posts[postIndex].comments.splice(commentIndex,1);
+      state.post = [...posts]
+    },
   },
   actions: {
     createAccount: ({ commit }, userInfos) => {
@@ -106,6 +136,90 @@ const store = createStore({
       .catch(function (error) {
         throw error
       });
+    },
+    createPost({ commit }, post) {
+      let token = JSON.parse(localStorage.getItem('user')).token;
+      let config = {
+        headers:{
+          "Authorization":"Barear "+ token,
+        }
+      }
+      console.log(post);
+      return new Promise((resolve, reject) => {
+        axios.post('http://localhost:3001/post/', post,  config )
+          .then((response) => {
+            console.log("createPost", response.data);
+            commit("addStatePost", response.data.newPost);
+            console.log(response.data);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
+    getAllPost: ({ commit }) => {
+      let token = JSON.parse(localStorage.getItem('user')).token;
+      let config = {
+        headers:{
+          "Authorization":"Barear "+ token
+        }
+      }
+      axios.get('http://localhost:3001/post/', config)
+      .then(function (response) {
+        commit('statePoste', response.data);
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        throw error
+      });
+    },
+    deletePost({ commit }, post) {
+      let token = JSON.parse(localStorage.getItem('user')).token;
+      let config = {
+        headers:{
+          "Authorization":"Barear "+ token
+        }
+      }
+    axios.delete(`http://localhost:3001/post/${post.ID}`, config)
+    commit('deleteStatePoste', post.ID);
+    },
+    createComment({ commit }, comment) {
+      let token = JSON.parse(localStorage.getItem('user')).token;
+      let config = {
+        headers:{
+          "Authorization":"Barear "+ token
+        }
+      }
+      const commentData = comment;
+      console.log(commentData);
+      const createComment = `http://localhost:3001/comment/${comment.ID}`
+      return new Promise((resolve, reject) => {
+        axios.post(createComment, commentData,  config  )
+          .then((response) => {
+            console.log(response);
+            commit("addStateComment", response.data.comment[0][0]);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
+    deleteComment({ commit }, comment) {
+      let token = JSON.parse(localStorage.getItem('user')).token;
+      let config = {
+        headers:{
+          "Authorization":"Barear "+ token
+        }
+      }
+    axios.delete(`http://localhost:3001/comment/${comment.ID}`, config)
+    .then((response) => {
+      console.log(response);
+      commit('deleteStateCommente', comment);
+    })
     },
   },
 })

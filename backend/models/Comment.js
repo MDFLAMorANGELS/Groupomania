@@ -8,36 +8,20 @@ class Comment {
     }
 
     save() {
-        let d = new Date();
-        let yyyy = d.getFullYear();
-        let mm = d.getMonth() + 1;
-        let dd = d.getDate();
-
-        let createdAtDate = `${yyyy}-${mm}-${dd}`;
+        
 
         let sql = `
         INSERT INTO comment(
            comment,
            author_ID,
-           post_ID,
-           created_at 
+           post_ID
         )
         VALUES(
             '${this.comment}',
             '${this.userID}',
-            '${this.postId}',
-           ' ${createdAtDate}'
+            '${this.postId}'
         )
         `;
-        /*
-         db.execute(sql, (err, results, fields) => {
-             if (err) {
-                 throw error
-             }
-             console.log(results)
-             return results
-         });
-         */
         return db.execute(sql)
         
     }

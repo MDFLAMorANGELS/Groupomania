@@ -6,11 +6,14 @@
         <form @submit.prevent="login()" action="">
             <div class="inputBox">
                 <label for="email">email adresse : </label>
-                <input type="email" v-model="email" autofocus name="email" placeholder="Adresse mail" required="required">
+                <input type="email" v-model="email" autofocus name="email" placeholder="Adresse mail" required="required" maxlength="35">
             </div>
             <div class="inputBox">
                 <label for="password">Mot de passe : </label>
-                <input type="password" v-model="password" name="password" placeholder="Mot de passe" required="required">
+                <input type="password" v-model="password" name="password" placeholder="Mot de passe" required="required" maxlength="35">
+            </div>
+            <div class="error" v-if="mode == 'login' && status == 'error_login'" >
+            <p>Adresse mail et/ou mot de passe invalide </p>
             </div>
             <div class="inputBox">
                 <input type="submit" value="Connexion">
@@ -23,15 +26,21 @@
         <form @submit.prevent="createAccount()" action="">
             <div class="inputBox">
                 <label for="username">Nom d'utilisateur :  </label>
-                <input type="text" v-model="username"  name="username" placeholder="Nom d'utilisateur" required="required">
+                <input type="text" v-model="username"  name="username" placeholder="Nom d'utilisateur" required="required" maxlength="35">
             </div>
             <div class="inputBox">
                 <label for="email">email adresse : </label>
-                <input type="email" v-model="email" name="email" placeholder="Adresse mail" required="required">
+                <input type="email" v-model="email" name="email" placeholder="Adresse mail" required="required" maxlength="35">
             </div>
             <div class="inputBox">
                 <label for="password">Mot de passe : </label>
-                <input type="password" v-model="password" name="password" placeholder="Mot de passe" required="required">
+                <input type="password" v-model="password" name="password" placeholder="Mot de passe" required="required" maxlength="35">
+            </div>
+            <div class="error" v-if=" status == 'error_create'" >
+            <p> Adresse mail et/ou username deja utilisé <br>
+                Le mot de passe doit contenir au minimum : <br>
+                 une majuscule , 2 chiffre , 8 caractere
+            </p>
             </div>
             <div class="inputBox">
                 <input type="submit" value="Créer mon compte">
@@ -104,7 +113,7 @@ export default {
     background: #fff;
     border-radius: 20px;
     box-shadow: 3px 10px 25px rgba(0, 0, 0, 0.3);
-    background-color: #ffffff4f;
+    background-color: #ffffff41;
 }
 
 .container h2 {
@@ -138,21 +147,40 @@ input[type=text], input[type=password], input[type=email], input[type=submit] {
 }
 /*style du button */
 input[type=submit] {
-    background: linear-gradient(45deg,#feab06ad,#c20defa4);
+    background: linear-gradient(45deg,#112341,#AEAEAE);
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 30%;
+    width: 35%;
     border-radius: 30px;
     font-size: 1.2em;
     transition: 1s;
 }
 input[type=submit]:hover {
     color: #5ce963;
-    background: linear-gradient(220deg,#fead06,#c00def);
     transition: 1s;
     transform: scale(105%);
+}
+.error {
+    background: #D1515A;
+}
+.error p {
+    margin: 0;
+}
+@media screen and (max-width: 600px) {
+    input[type=submit] {
+    width: 60%;
+    }
+    .container h2 {
+    font-size: 1.8em;
+    }
+    .form {
+        padding: 2%;
+    }
+    .container {
+        padding: 1%;
+    }
 }
 </style>
