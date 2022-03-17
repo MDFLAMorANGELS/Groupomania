@@ -65,7 +65,7 @@ const store = createStore({
     },
     addStatePost: function(state, post){
       state.post.unshift(post)
-      console.log(state.post);
+      //console.log(state.post);
     },
     deleteStatePoste: function(state,postID){
       let post = state.post.filter(p => p.ID  != postID);
@@ -75,9 +75,9 @@ const store = createStore({
       state.comment = comment;
     },
     addStateComment: function(state,comment){
-      console.log(state)
+      //console.log(state)
       let postIndex = state.post.findIndex(post => post.ID === comment.post_ID)
-      console.log(postIndex)
+      //console.log(postIndex)
       if (state.post[postIndex].comments) {
         state.post[postIndex].comments.unshift(comment)
       } else {
@@ -87,13 +87,9 @@ const store = createStore({
     deleteStateComment: function(state,comment){
       let posts = [...state.post]
       let postIndex = posts.findIndex(post => post.ID === comment.post_ID)
-      console.log(comment);
-      console.log(postIndex)
-      console.log(comment.ID);
-      console.log(posts);
-
+      //console.log(postIndex)
       let commentIndex = posts[postIndex].comments.findIndex(com => com.ID === comment.ID)
-      console.log(commentIndex)
+      //console.log(commentIndex)
       posts[postIndex].comments.splice(commentIndex,1);
       state.post = [...posts]
     },
@@ -138,7 +134,7 @@ const store = createStore({
       axios.get('http://localhost:3001/user/', config)
       .then(function (response) {
         commit('userInfos', response.data.user[0][0]);
-        console.log(response.data.user[0][0])
+        //console.log(response.data.user[0][0])
       })
       .catch(function (error) {
         throw error
@@ -155,9 +151,9 @@ const store = createStore({
       return new Promise((resolve, reject) => {
         axios.post('http://localhost:3001/post/', post,  config )
           .then((response) => {
-            console.log("createPost", response.data);
+            //console.log("createPost", response.data);
             commit("addStatePost", response.data.newPost);
-            console.log(response.data);
+            //console.log(response.data);
             resolve(response);
           })
           .catch((error) => {
@@ -176,7 +172,7 @@ const store = createStore({
       axios.get('http://localhost:3001/post/', config)
       .then(function (response) {
         commit('statePoste', response.data);
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch(function (error) {
         throw error
@@ -200,12 +196,12 @@ const store = createStore({
         }
       }
       const commentData = comment;
-      console.log(commentData);
+      //console.log(commentData);
       const createComment = `http://localhost:3001/comment/${comment.ID}`
       return new Promise((resolve, reject) => {
         axios.post(createComment, commentData,  config  )
           .then((response) => {
-            console.log(response);
+            //console.log(response);
             commit("addStateComment", response.data.comment[0][0]);
             resolve(response);
           })
@@ -222,10 +218,10 @@ const store = createStore({
           "Authorization":"Barear "+ token
         }
       }
-      console.log(comment)
+      //console.log(comment)
     axios.delete(`http://localhost:3001/comment/${comment.ID}`, config)
     .then((response) => {
-      console.log(response);
+      //console.log(response);
       commit('deleteStateComment', comment);
     })
     },
