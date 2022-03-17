@@ -16,8 +16,6 @@
 
 <script>
 
-
-
 export default {
   name: "Form_comment",
   data: function() {

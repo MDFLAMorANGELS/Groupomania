@@ -22,7 +22,7 @@
               <div  v-for="comment in publication.comments" :key="comment.ID">
                 <div class="head">
                   <p>{{comment.username}} A commenté le {{ publication ? format(comment.created_at) : '' }}</p>
-                  <fa class="trash" @click="deleteComment(publication)" v-if="userInfos.ID == publication.author_ID ||  userInfos.isAdmin  != 1 " :icon="['fa','trash-can']"/>
+                  <fa class="trash" @click="deleteComment(comment)" v-if="userInfos.ID == comment.author_ID ||  userInfos.isAdmin  != 1 " :icon="['fa','trash-can']"/>
                 </div>
                 <p>{{ comment.comment }}</p>
               </div>
@@ -85,6 +85,7 @@ export default {
         }
     },
 }
+
 </script>
 <style >
 
@@ -92,7 +93,6 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  justify-content: center;
   align-items: center;
 }
 #logo-exit{
@@ -112,7 +112,7 @@ export default {
 #bonjour {
   position: absolute;
   left: 50px;
-  top: 170px;
+  top: 130px;
   color: #fff;
   font-size: 1.5em;
 }
@@ -171,7 +171,7 @@ transform: scale(110%);
     width: 70%;
   }
   #bonjour {
-    top: 140px;
+    top: 130px;
   }
 }
 @media screen and (max-width: 768px) {

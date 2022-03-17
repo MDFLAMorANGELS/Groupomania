@@ -27,6 +27,7 @@ exports.createNewComment = async (req, res , next) => {
 exports.deleteComment = async (req, res, next) => {
     try {
         let commentID = req.params.id;
+        console.log(commentID)
         await Comment.deleteComment(commentID);
         res.status(200).json('comment Deleted');
     } catch (error) {

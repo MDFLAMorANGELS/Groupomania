@@ -71,6 +71,9 @@ const store = createStore({
       let post = state.post.filter(p => p.ID  != postID);
       state.post = post
     },
+    commente: function(state, comment) {
+      state.comment = comment;
+    },
     addStateComment: function(state,comment){
       console.log(state)
       let postIndex = state.post.findIndex(post => post.ID === comment.post_ID)
@@ -81,10 +84,14 @@ const store = createStore({
         state.post[postIndex].comments = [comment]
       }
     },
-    deleteStateCommente: function(state,comment){
+    deleteStateComment: function(state,comment){
       let posts = [...state.post]
       let postIndex = posts.findIndex(post => post.ID === comment.post_ID)
+      console.log(comment);
       console.log(postIndex)
+      console.log(comment.ID);
+      console.log(posts);
+
       let commentIndex = posts[postIndex].comments.findIndex(com => com.ID === comment.ID)
       console.log(commentIndex)
       posts[postIndex].comments.splice(commentIndex,1);
@@ -215,10 +222,11 @@ const store = createStore({
           "Authorization":"Barear "+ token
         }
       }
+      console.log(comment)
     axios.delete(`http://localhost:3001/comment/${comment.ID}`, config)
     .then((response) => {
       console.log(response);
-      commit('deleteStateCommente', comment);
+      commit('deleteStateComment', comment);
     })
     },
   },

@@ -62,16 +62,17 @@ export default {
 
 <style scoped>
 .container_post {
-    margin: 2%;
+    margin: 14vh 5% 5% 5%;
 }
-form {
-    margin-top: 125px;
-}
+
 h3 {
     margin: 5% 2% 2% 2%;
     font-size: 1.8em;
 }
-
+#textarea {
+    display: flex;
+    flex-direction: column;
+}
 textarea {
     letter-spacing: 1px;
     font-size: 1.5em;
@@ -84,9 +85,7 @@ textarea {
     resize: none;
     background-color: rgb(228, 227, 227);
 }
-#textarea {
-    margin-top: 12%;
-}
+
 #field {
     display: flex;
     justify-content: center;
@@ -133,9 +132,23 @@ label {
 .input-file {
     display: none;
 }
+@media screen and (max-width: 1024px) {
+    .container_post {
+    margin: 18vh 5% 5% 5%;
+    }
+}
 @media screen and (max-width: 768px) {
     #button_post {
         width: 50%;
+    }
+    form {
+    margin-top: 125px;
+    }
+    .container_post {
+    margin: 25vh 5% 5% 5%;
+    }
+    h3 {
+        padding: 0;
     }
 }
 </style>
