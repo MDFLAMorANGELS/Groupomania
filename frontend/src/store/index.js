@@ -221,7 +221,7 @@ const store = createStore({
       //console.log(comment)
     axios.delete(`http://localhost:3001/comment/${comment.ID}`, config)
     .then((response) => {
-      //console.log(response);
+      console.log(response);
       commit('deleteStateComment', comment);
     })
     },
